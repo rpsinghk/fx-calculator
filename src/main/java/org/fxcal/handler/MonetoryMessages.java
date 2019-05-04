@@ -10,7 +10,7 @@ public class MonetoryMessages {
 	private static MessagesResource msg = MessagesResource.getInstance();
 	
 	public static String exchangeRateNotFound(Money money,CurrencyUnit targetCurrency) {
-		return msg.getMessage("parse.ratenotfound.message", money.getCurrency(),targetCurrency);
+		return msg.getMessage("parse.ratenotfound.message", money.getCurrency().getCurrencyCode(),targetCurrency.getCurrencyCode());
 	}
 
 	public static String success(Money monetoryInOldCurrency, Money moneyInNewCurrency) {
@@ -18,7 +18,7 @@ public class MonetoryMessages {
 		
 		MonetoryAmountFormat to 	= MonetoryAmountFormat.from(moneyInNewCurrency);
 		
-		return msg.getMessage("parse.sucess.message", monetoryInOldCurrency.getCurrency(), from.format(), moneyInNewCurrency.getCurrency(), to.format());
+		return msg.getMessage("parse.sucess.message", monetoryInOldCurrency.getCurrency().getCurrencyCode(), from.format(), moneyInNewCurrency.getCurrency().getCurrencyCode(), to.format());
 		
 	}
 	

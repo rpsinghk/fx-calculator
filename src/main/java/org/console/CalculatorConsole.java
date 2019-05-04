@@ -31,7 +31,7 @@ public class CalculatorConsole extends AbstractConsole{
 	
 		if(!inputStreamSource.supportMultiLine()) {
 			if(System.getenv("REPL") != null) {
-				HelpCommand.pirintHelpMessage1();
+				HelpCommand.printShortMessage();
 				executeWithREPL();					
 			}else {
 				log.trace("executing in single line mode");
@@ -39,7 +39,7 @@ public class CalculatorConsole extends AbstractConsole{
 					String inputQueryString = inputStreamSource.handleArguments(args);
 					return executeWithoutREPL(inputQueryString);
 				}else {
-					HelpCommand.pirintHelpMessage2();
+					HelpCommand.printREPLMessage();
 				}
 			}
 			

@@ -8,22 +8,19 @@ import java.util.Objects;
 import java.util.Properties;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import org.fx.money.ExchangeRate;
-import org.fxcal.compute.ResultData;
-import org.fxcal.data.lookup.CrossCurrencyLookup;
 import org.fxcal.data.lookup.CrossCurrencyMatrixData;
 
 import lombok.extern.slf4j.Slf4j;
 
 
 @Slf4j
-public class CrossViaMatrixConfig implements CrossCurrencyLookup{
+public class CrossViaMatrixConfig{
 
 	private static final AtomicBoolean loaded = new AtomicBoolean(false);
 	
 	private static CrossViaMatrixConfig crossViaMatrixConfig;
 	
-	private transient CrossCurrencyMatrixData crossCurrencyMatrixData;
+	private CrossCurrencyMatrixData crossCurrencyMatrixData;
 	
 	public CrossCurrencyMatrixData getMatrixData() {
 		return crossCurrencyMatrixData;
@@ -86,13 +83,5 @@ public class CrossViaMatrixConfig implements CrossCurrencyLookup{
 				return crossViaMatrixConfig;
 			}
 		}
-	}
-
-	@Override
-	public void crossCurrencyLookup(ExchangeRate exchangeRate, ResultData result) {
-		Objects.requireNonNull(exchangeRate, "exchange rate must be not null");
-		Object _result = crossCurrencyMatrixData.getXValue(exchangeRate.getBaseCurrency().getCurrencyCode(),exchangeRate.getTermCurrency().getCurrencyCode());
-		result.setData(_result);
-	}
-
+	}	
 }

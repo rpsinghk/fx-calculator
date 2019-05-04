@@ -5,7 +5,6 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import org.fx.conversion.CrossType;
 import org.fx.money.ExchangeRate;
 import org.fxcal.compute.ResultData;
 import org.fxcal.configs.CrossViaMatrixConfig;
@@ -27,7 +26,7 @@ public class CrossCurrencyPairHandler implements FXResourceHandler,CrossCurrency
 	@Getter
 	String name = "ccylookup";
 	
-	static CrossCurrencyValue  values;
+	static CrossCurrencyValue  crossCurrencyMatrixData;
 	
 	static AtomicBoolean cached = new AtomicBoolean(false);
 
@@ -39,25 +38,20 @@ public class CrossCurrencyPairHandler implements FXResourceHandler,CrossCurrency
 		crossViaMatrixConfig.load(url);
 		
 		
-		values = crossViaMatrixConfig.getMatrixData();
+		crossCurrencyMatrixData = crossViaMatrixConfig.getMatrixData();
 		cached.set(true);
 		
 	}
 
 	@Override
 	public void crossCurrencyLookup(ExchangeRate exchangeRate, ResultData result) {
-		Objects.requireNonNull(values, "values");
+		Objects.requireNonNull(exchangeRate, "exchange rate must be not null");
+		Objects.requireNonNull(crossCurrencyMatrixData, "matrix data must not be null");
 		String baseCurrencyCode = exchangeRate.getBaseCurrency().getCurrencyCode();
 		String termCurrencyCode = exchangeRate.getTermCurrency().getCurrencyCode();
-		Optional _result = values.getXValue(baseCurrencyCode,termCurrencyCode);
-		if(_result.isPresent()) {
-			Object outValue = CrossType.from(_result.get().toString());
-			if(CrossType.INVERTED.toString().equalsIgnoreCase(outValue.toString())){
-				exchangeRate.setInverted(Boolean.TRUE);
-			}
-			_result = Optional.of(outValue);
-		}
+		Optional<Object> _result = crossCurrencyMatrixData.getXValue(baseCurrencyCode,termCurrencyCode);
 		result.setData(_result);
 	}
+	
 
 }

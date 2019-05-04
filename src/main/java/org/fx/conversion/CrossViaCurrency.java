@@ -1,7 +1,5 @@
 package org.fx.conversion;
 
-import java.math.BigDecimal;
-
 import org.fx.money.Conversion;
 import org.fx.money.CurrencyUnit;
 import org.fx.money.ExchangeRate;
@@ -40,17 +38,17 @@ public class CrossViaCurrency implements Conversion {
 		ExchangeRate exchangeRateCrossVia2 = new ExchangeRate(crossCurrency, termCurrency);
 		fxCalls.retreieveExchangeRate(exchangeRateCrossVia2);
 		
-		log.trace("2nd exchange rate :  {}  {} {} ",exchangeRate.getBaseCurrency().getCurrencyCode(),exchangeRate.getTermCurrency().getCurrencyCode(),crossCurrency.getCurrencyCode());
+		log.trace("2nd exchange rate :  {}  {} {} ",exchangeRate.getBaseCurrency().getCurrencyCode(),exchangeRate.getTermCurrency().getCurrencyCode(),exchangeRateCrossVia2.getRate());
 		
 		exchangeRateTermValue = exchangeRateWithCrossVia1.getRate() * exchangeRateCrossVia2.getRate();
 		
 		if(exchangeRateWithCrossVia1.getRate() == null || exchangeRateCrossVia2.getRate() == null) {
-			log.trace("exchange rate is null");
 			exchangeRate.setRate(null);
 		}else {
-			log.trace("exchange rate via ccy :  {}",exchangeRateTermValue.doubleValue());
 			exchangeRate.setRate(exchangeRateTermValue);
 		}
+		
+		log.trace("ccy rate :  {}",exchangeRateTermValue.doubleValue());
 		
 		
 	}

@@ -18,7 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 	private List<String[]> data =  new ArrayList<String[]>();
 	
 	
-	public Optional<?> getXValue(String base,String term){
+	public Optional<Object> getXValue(String base,String term){
 		String crossValuCode = null;
 
 		int baseIndex = baseValues.indexOf(base);
@@ -32,8 +32,8 @@ import lombok.extern.slf4j.Slf4j;
 			log.error("Invalid code {} for base {} & term {} in CCY matrix", crossValuCode,base,term);
 			return Optional.empty();
 		}
-
-		return Optional.of(crossValuCode);
+		
+		return Optional.of(CrossType.from(crossValuCode));
 	}
 	
 	public void clear() {

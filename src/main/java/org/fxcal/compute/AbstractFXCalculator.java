@@ -40,10 +40,10 @@ public abstract class AbstractFXCalculator implements CalculatorService{
 	}
 	
 	@Override
-	public void rateLookup(ExchangeRate exchangeRate) {
+	public void rateLookup(ExchangeRate exchangeRate, Boolean invertLookup) {
 		calculatorContext.getHanlders().forEach((x,y) ->{
 			if(y instanceof RateLookup) {
-				((RateLookup)y).rateLookup(exchangeRate);
+				((RateLookup)y).rateLookup(exchangeRate, invertLookup);
 			}
 		});
 	}

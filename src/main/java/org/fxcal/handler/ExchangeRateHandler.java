@@ -12,6 +12,7 @@ import org.fxcal.data.lookup.RateLookup;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+
 @RequiredArgsConstructor
 public class ExchangeRateHandler implements FXResourceHandler,RateLookup{
 	
@@ -30,18 +31,16 @@ public class ExchangeRateHandler implements FXResourceHandler,RateLookup{
 	public void load(URL url) {
 		ExchangeRatesConfig exchangeRatesConfiguration =  ExchangeRatesConfig.getInstance(fxprice);
 		exchangeRatesConfiguration.load(url);
-		
-		
 	}
 
 	@Override
-	public void rateLookup(ExchangeRate exchangeRate) {
+	public void rateLookup(ExchangeRate exchangeRate, Boolean invertLookup) {
 		Double rate ;
 		if(exchangeRate.getBaseCurrency().compareTo(exchangeRate.getTermCurrency()) == 0) {
 			rate = 1.0;
 		}else {
 			StringBuffer combinedKey = new StringBuffer(6);
-			if(exchangeRate.getInverted()) {
+			if(invertLookup) {
 				combinedKey.append(exchangeRate.getTermCurrency().getCurrencyCode()).append(exchangeRate.getBaseCurrency().getCurrencyCode());
 			}else {
 				combinedKey.append(exchangeRate.getBaseCurrency().getCurrencyCode()).append(exchangeRate.getTermCurrency().getCurrencyCode());	

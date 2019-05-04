@@ -6,9 +6,11 @@ import java.util.Objects;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
+import lombok.ToString;
 
 
 @Getter
+@ToString
 public class CurrencyUnit implements Comparable<CurrencyUnit>,Serializable {
 	
 
@@ -32,10 +34,6 @@ public class CurrencyUnit implements Comparable<CurrencyUnit>,Serializable {
 		return new CurrencyUnit(currencyCode);
 	}
 	
-	public String toString() {
-		return currencyCode;
-	}
-
 	@Override
 	public int hashCode() {
 		return Objects.hashCode(currencyCode);

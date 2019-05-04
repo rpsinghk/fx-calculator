@@ -14,14 +14,14 @@ public class HelpCommand  implements Command{
 
 	public Optional<?> execute(String commandString) {
 		//System.out.println(abstractConsole.message("help.command.description"));
-		HelpCommand.pirintHelpMessage1();
+		HelpCommand.printShortMessage();
 		
 		return Optional.of(Boolean.FALSE);
 	}
 	
 	
 	//keep it simple
-	public static void pirintHelpMessage1() {
+	public static void printShortMessage() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("This is REPL mode.").append("\n");
 		sb.append("Enter the conversion query to continue.").append("\n");
@@ -42,7 +42,7 @@ public class HelpCommand  implements Command{
 	}
 
 	
-	public static void pirintHelpMessage2() {
+	public static void printREPLMessage() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("To run this application, pass the query").append("\n");
 		sb.append("as an argument. Only one query at a time.").append("\n").append("\n");

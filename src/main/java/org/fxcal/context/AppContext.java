@@ -2,7 +2,6 @@ package org.fxcal.context;
 
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;

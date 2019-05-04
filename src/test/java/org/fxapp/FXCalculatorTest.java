@@ -42,12 +42,21 @@ public class FXCalculatorTest {
 		input 		= "JPY 100 in USD";
 		actual 		= calculator.start(input);
 		assertEquals("JPY 100 = USD 0.83",actual);
+
+	}
+	
+	
+	@Test
+	public void rateNotFoundExchangeMoneyWithCurrencyTest() {
+		String input;
+		String actual;
 		
 		
 		input 		= "KRW 1000.00 in FJD";
 		actual 		= calculator.start(input);
 		assertEquals("Unable to find rate for KRW/FJD",actual);
 	}
+
 
 
 }

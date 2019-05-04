@@ -46,12 +46,12 @@ public class FXCalculatorService extends AbstractFXCalculator {
 	
 	// Retrieves exchange rate fraction 
 	private Money calculateExchangeValueOFMoney(Money monetoryValueOfOldCurrency, ExchangeRate exchangeRate) {
-		
+		log.trace("exchange rate in : {} {},{} {}, rate: {}",exchangeRate.getBaseCurrency().getCurrencyCode(), exchangeRate.getBaseCurrency().getDefaultFractionDigits(), exchangeRate.getTermCurrency().getCurrencyCode(), exchangeRate.getTermCurrency().getDefaultFractionDigits(), exchangeRate.getRate());
 		Money monetoryValueOfNewCurrency = null;
 		
 		retreieveExchangeRate(exchangeRate);
 		
-		log.trace("exchange rate : {}",exchangeRate.getRate());
+		log.trace("exchange rate new : {} {},{} {}, rate: {}",exchangeRate.getBaseCurrency().getCurrencyCode(), exchangeRate.getBaseCurrency().getDefaultFractionDigits(), exchangeRate.getTermCurrency().getCurrencyCode(), exchangeRate.getTermCurrency().getDefaultFractionDigits(), exchangeRate.getRate());
 		
 		if (exchangeRate != null && exchangeRate.getRate() != null) {
 			
@@ -70,7 +70,8 @@ public class FXCalculatorService extends AbstractFXCalculator {
 		
 		fractionDigitLookup(exchangeRate);
 		
-		log.trace("precision - {} : {} ,  {} : {}",exchangeRate.getBaseCurrency().getCurrencyCode(),exchangeRate.getBaseCurrency().getDefaultFractionDigits(),exchangeRate.getTermCurrency().getCurrencyCode(),exchangeRate.getTermCurrency().getDefaultFractionDigits());
+		
+		log.trace("after ccy look & fraction : {} {},{} {}, rate: {}",exchangeRate.getBaseCurrency().getCurrencyCode(), exchangeRate.getBaseCurrency().getDefaultFractionDigits(), exchangeRate.getTermCurrency().getCurrencyCode(), exchangeRate.getTermCurrency().getDefaultFractionDigits(), exchangeRate.getRate());
 		
 		Optional<?> valueAtCross = result.getOptional();
 		
@@ -80,7 +81,7 @@ public class FXCalculatorService extends AbstractFXCalculator {
 		
 			valueAtCross.filter(x -> x instanceof CrossType).ifPresent(x -> {
 			
-				rateLookup(exchangeRate);
+				rateLookup(exchangeRate,CrossType.INVERTED == x);
 				
 				conversion.apply((CrossType) x,this).rate(exchangeRate);
 			

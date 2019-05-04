@@ -4,7 +4,11 @@ import java.util.Objects;
 
 import org.fx.money.CurrencyUnit;
 import org.fx.money.ExchangeRate;
+import org.fx.money.VerifyNumber;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class Inverse extends DirectFeed {
 	
 	public double rate(CurrencyUnit baseCurency, CurrencyUnit termCurrency) {
@@ -15,9 +19,18 @@ public class Inverse extends DirectFeed {
 	}
 	
 	public void rate(ExchangeRate exchangeRate) {
-		double rate = exchangeRate.getRate().doubleValue();
-		double newRate = 1/rate;
-		exchangeRate.setRate(Double.valueOf(newRate));
+		Objects.requireNonNull(exchangeRate);
+		Objects.requireNonNull(exchangeRate.getRate(),"Exchange rate value can't be null");
+		
+		Double rate = exchangeRate.getRate();
+		
+		Double newRate = 1/rate;
+		
+		if(VerifyNumber.isInfinityAndNotNaN(newRate)) {
+			newRate = new Double(0.0d);
+		}
+		log.trace("Inverse rate {} ",newRate);
+		exchangeRate.setRate(newRate);
 	}
 
 }
