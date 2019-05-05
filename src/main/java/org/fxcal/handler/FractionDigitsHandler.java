@@ -29,8 +29,8 @@ public class FractionDigitsHandler implements FXResourceHandler,FractionDigitLoo
 
 	@Override
 	public void load(URL url) {
-		FractionDigitsConfig precisionConfig =  FractionDigitsConfig.getInstance(currenciesFractionData);
-		precisionConfig.load(url);
+		FractionDigitsConfig resource =  FractionDigitsConfig.getInstance(currenciesFractionData);
+		resource.load(url);
 	}
 
 	@Override

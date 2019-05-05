@@ -8,6 +8,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import org.fx.money.ExchangeRate;
 import org.fxcal.compute.ResultData;
 import org.fxcal.configs.CrossViaMatrixConfig;
+import org.fxcal.configs.HandlerFactory;
 import org.fxcal.context.AppContext;
 import org.fxcal.data.lookup.CrossCurrencyLookup;
 import org.fxcal.data.lookup.CrossCurrencyValue;
@@ -32,15 +33,12 @@ public class CrossCurrencyPairHandler implements FXResourceHandler,CrossCurrency
 
 	@Override
 	public void load(URL url) {
-		
 		if(cached.get()) return;
-		CrossViaMatrixConfig crossViaMatrixConfig = CrossViaMatrixConfig.getInstance();
-		crossViaMatrixConfig.load(url);
-		
-		
-		crossCurrencyMatrixData = crossViaMatrixConfig.getMatrixData();
+		FXResourceHandler resource = HandlerFactory.getCrossViaMatrixConfig();
+		resource.load(url);
+
+		crossCurrencyMatrixData = ((CrossViaMatrixConfig)resource).getMatrixData();
 		cached.set(true);
-		
 	}
 
 	@Override

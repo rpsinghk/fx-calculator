@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.fx.money.ExchangeRate;
-import org.fxcal.configs.ExchangeRatesConfig;
+import org.fxcal.configs.HandlerFactory;
 import org.fxcal.context.AppContext;
 import org.fxcal.data.lookup.RateLookup;
 
@@ -29,10 +29,10 @@ public class ExchangeRateHandler implements FXResourceHandler,RateLookup{
 
 	@Override
 	public void load(URL url) {
-		ExchangeRatesConfig exchangeRatesConfiguration =  ExchangeRatesConfig.getInstance(fxprice);
-		exchangeRatesConfiguration.load(url);
+		FXResourceHandler resource =  HandlerFactory.getExchangeRatesConfig(fxprice);
+		resource.load(url);
 	}
-
+	
 	@Override
 	public void rateLookup(ExchangeRate exchangeRate, Boolean invertLookup) {
 		Double rate ;

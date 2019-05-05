@@ -9,12 +9,13 @@ import java.util.Properties;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.fxcal.data.lookup.CrossCurrencyMatrixData;
+import org.fxcal.handler.FXResourceHandler;
 
 import lombok.extern.slf4j.Slf4j;
 
 
 @Slf4j
-public class CrossViaMatrixConfig{
+public class CrossViaMatrixConfig implements FXResourceHandler{
 
 	private static final AtomicBoolean loaded = new AtomicBoolean(false);
 	

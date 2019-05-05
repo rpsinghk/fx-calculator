@@ -15,7 +15,7 @@ import org.fxcal.data.lookup.RateLookup;
 
 public interface CalculatorService extends CrossCurrencyLookup,RateLookup,FractionDigitLookup {
 	
-	BiFunction<CrossType, AbstractFXCalculator, Conversion> conversion = ConversionUtils::getCov;
+	BiFunction<CrossType, AbstractFXCalculator, Conversion> conversion = ConversionUtils::getCoversionType;
 	
 	public void retreieveExchangeRate(ExchangeRate exchangeRate);
 	

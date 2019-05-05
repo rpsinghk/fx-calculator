@@ -5,10 +5,12 @@ import java.net.URL;
 import java.util.Map;
 import java.util.Properties;
 
+import org.fxcal.handler.FXResourceHandler;
+
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public abstract class FXPropertiesReader<K,T> {
+public abstract class FXPropertiesReader<K,T> implements FXResourceHandler{
 	
 	private Map<K,T> resourceMap;
 	
